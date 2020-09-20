@@ -1,8 +1,8 @@
 package com.midexam.quizgame.model;
 
 public class WordItem {
-    int imageResId;
-    String word;
+    public final int imageResId;
+    public final String word;
 
     public WordItem(int imageResId, String word) {
         this.imageResId = imageResId;

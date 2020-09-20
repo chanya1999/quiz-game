@@ -2,6 +2,7 @@ package com.midexam.quizgame;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,6 +19,14 @@ public class WordListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_list);
+
+        //Create Adapter object
+        MyAdapter adapter = new MyAdapter();
+        //Create layout manager
+        LinearLayoutManager lm = new LinearLayoutManager(WordListActivity.this);
+        RecyclerView rv = findViewById(R.id.word_list_recycler_view);
+        rv.setLayoutManager(lm);
+        rv.setAdapter(adapter);
     }
 
     class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
@@ -37,12 +46,13 @@ public class WordListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
+            holder.imageView.setImageResource(item.imageResId);
+            holder.wordTextView.setText(item.word);
         }
 
         @Override
         public int getItemCount() {
-            return 0;
+            return 1;
         }
 
         class MyViewHolder extends RecyclerView.ViewHolder{
