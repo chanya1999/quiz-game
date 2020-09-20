@@ -31,9 +31,19 @@ public class WordListActivity extends AppCompatActivity {
 
     class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
-        WordItem item;
+        WordItem[] items = {
+                new WordItem(R.drawable.cat,"CAT"),
+                new WordItem(R.drawable.dog,"DOG"),
+                new WordItem(R.drawable.dolphin,"DOLPHIN"),
+                new WordItem(R.drawable.tiger,"TIGER"),
+                new WordItem(R.drawable.koala,"KOALA"),
+                new WordItem(R.drawable.lion,"LION"),
+                new WordItem(R.drawable.owl,"OWL"),
+                new WordItem(R.drawable.penguin,"PENQUIN"),
+                new WordItem(R.drawable.pig,"PIG")
+        };
         public MyAdapter() {
-            item = new WordItem(R.drawable.cat,"CAT");
+
         }
 
         @NonNull
@@ -46,13 +56,13 @@ public class WordListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-            holder.imageView.setImageResource(item.imageResId);
-            holder.wordTextView.setText(item.word);
+                holder.imageView.setImageResource(items[position].imageResId);
+                holder.wordTextView.setText(items[position].word);
         }
 
         @Override
         public int getItemCount() {
-            return 1;
+            return items.length;
         }
 
         class MyViewHolder extends RecyclerView.ViewHolder{
