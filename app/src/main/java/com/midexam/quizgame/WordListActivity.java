@@ -29,51 +29,53 @@ public class WordListActivity extends AppCompatActivity {
         rv.setAdapter(adapter);
     }
 
-    class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
-        WordItem[] items = {
-                new WordItem(R.drawable.cat,"CAT"),
-                new WordItem(R.drawable.dog,"DOG"),
-                new WordItem(R.drawable.dolphin,"DOLPHIN"),
-                new WordItem(R.drawable.tiger,"TIGER"),
-                new WordItem(R.drawable.koala,"KOALA"),
-                new WordItem(R.drawable.lion,"LION"),
-                new WordItem(R.drawable.owl,"OWL"),
-                new WordItem(R.drawable.penguin,"PENQUIN"),
-                new WordItem(R.drawable.pig,"PIG")
-        };
-        public MyAdapter() {
+}
 
-        }
+class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
-        @NonNull
-        @Override
-        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_word, parent, false);
-            MyViewHolder vh = new MyViewHolder(v);
-            return vh;
-        }
+    WordItem[] items = {
+            new WordItem(R.drawable.cat,"CAT"),
+            new WordItem(R.drawable.dog,"DOG"),
+            new WordItem(R.drawable.dolphin,"DOLPHIN"),
+            new WordItem(R.drawable.tiger,"TIGER"),
+            new WordItem(R.drawable.koala,"KOALA"),
+            new WordItem(R.drawable.lion,"LION"),
+            new WordItem(R.drawable.owl,"OWL"),
+            new WordItem(R.drawable.penguin,"PENQUIN"),
+            new WordItem(R.drawable.pig,"PIG")
+    };
+    public MyAdapter() {
 
-        @Override
-        public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-                holder.imageView.setImageResource(items[position].imageResId);
-                holder.wordTextView.setText(items[position].word);
-        }
+    }
 
-        @Override
-        public int getItemCount() {
-            return items.length;
-        }
+    @NonNull
+    @Override
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_word, parent, false);
+        MyViewHolder vh = new MyViewHolder(v);
+        return vh;
+    }
 
-        class MyViewHolder extends RecyclerView.ViewHolder{
-            ImageView imageView;
-            TextView wordTextView;
+    @Override
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        holder.imageView.setImageResource(items[position].imageResId);
+        holder.wordTextView.setText(items[position].word);
+    }
 
-            public MyViewHolder(@NonNull View itemView) {
-                super(itemView);
-                imageView = itemView.findViewById(R.id.image_view);
-                wordTextView = itemView.findViewById(R.id.word_text_view);
-            }
+    @Override
+    public int getItemCount() {
+        return items.length;
+    }
+
+    class MyViewHolder extends RecyclerView.ViewHolder{
+        ImageView imageView;
+        TextView wordTextView;
+
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+            imageView = itemView.findViewById(R.id.image_view);
+            wordTextView = itemView.findViewById(R.id.word_text_view);
         }
     }
 }
