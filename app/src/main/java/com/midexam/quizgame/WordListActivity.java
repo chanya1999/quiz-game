@@ -41,6 +41,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             new WordItem(R.drawable.tiger,"TIGER"),
             new WordItem(R.drawable.koala,"KOALA"),
             new WordItem(R.drawable.lion,"LION"),
+            new WordItem(R.drawable.rabbit,"RABBIT"),
             new WordItem(R.drawable.owl,"OWL"),
             new WordItem(R.drawable.penguin,"PENGUIN"),
             new WordItem(R.drawable.pig,"PIG")
