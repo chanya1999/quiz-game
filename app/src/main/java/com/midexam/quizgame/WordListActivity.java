@@ -1,7 +1,6 @@
 package com.midexam.quizgame;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.midexam.quizgame.model.WordItem;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import java.util.List;
 
 public class WordListActivity extends AppCompatActivity {
 
-    private WordItem[] items = {
+    static public WordItem[] items = {
             new WordItem(R.drawable.cat,"CAT"),
             new WordItem(R.drawable.dog,"DOG"),
             new WordItem(R.drawable.dolphin,"DOLPHIN"),
@@ -104,8 +104,12 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                     Toast.makeText(context,item.word,Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(context,WordDetailsActivity.class);
-                    intent.putExtra("word", item.word);
-                    intent.putExtra("image", item.imageResId);
+//                    intent.putExtra("word", item.word);
+//                    intent.putExtra("image", item.imageResId);
+
+                    String itemJson = new Gson().toJson(item);
+                    intent.putExtra("item",itemJson);
+
                     context.startActivity(intent);
                 }
             });
