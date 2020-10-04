@@ -18,28 +18,13 @@ import android.widget.Toast;
 
 import com.midexam.quizgame.model.WordItem;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class WordListActivity extends AppCompatActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_word_list);
-
-        //Create Adapter object
-        MyAdapter adapter = new MyAdapter(WordListActivity.this);
-        //Create layout manager
-        LinearLayoutManager lm = new LinearLayoutManager(WordListActivity.this);
-        RecyclerView rv = findViewById(R.id.word_list_recycler_view);
-        rv.setLayoutManager(lm);
-        rv.setAdapter(adapter);
-    }
-}
-
-class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
-
-    final Context mContext;
-
-    WordItem[] items = {
+    private WordItem[] items = {
             new WordItem(R.drawable.cat,"CAT"),
             new WordItem(R.drawable.dog,"DOG"),
             new WordItem(R.drawable.dolphin,"DOLPHIN"),
@@ -51,8 +36,34 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             new WordItem(R.drawable.penguin,"PENGUIN"),
             new WordItem(R.drawable.pig,"PIG")
     };
-    public MyAdapter(Context context) {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_word_list);
+
+        List<WordItem> wordList = Arrays.asList(items);
+        //Create Adapter object
+        MyAdapter adapter = new MyAdapter(WordListActivity.this, wordList);
+        //Create layout manager
+        LinearLayoutManager lm = new LinearLayoutManager(WordListActivity.this);
+
+
+
+        RecyclerView rv = findViewById(R.id.word_list_recycler_view);
+        rv.setLayoutManager(lm);
+        rv.setAdapter(adapter);
+    }
+}
+
+class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+
+    final Context mContext;
+    final List<WordItem> mWordList;
+
+    public MyAdapter(Context context, List<WordItem> wordList) {
         this.mContext = context;
+        this.mWordList = wordList;
     }
 
     @NonNull
@@ -65,14 +76,14 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.imageView.setImageResource(items[position].imageResId);
-        holder.wordTextView.setText(items[position].word);
-        holder.item = items[position];
+        holder.imageView.setImageResource(mWordList.get(position).imageResId);
+        holder.wordTextView.setText(mWordList.get(position).word);
+        holder.item = mWordList.get(position);
     }
 
     @Override
     public int getItemCount() {
-        return items.length;
+        return mWordList.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
@@ -92,7 +103,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 public void onClick(View view) {
                     Toast.makeText(context,item.word,Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(context,WordListActivity.class);
+                    Intent intent = new Intent(context,WordDetailsActivity.class);
                     context.startActivity(intent);
                 }
             });
