@@ -1,11 +1,13 @@
 package com.midexam.quizgame;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,7 +59,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_word, parent, false);
-        MyViewHolder vh = new MyViewHolder(v);
+        MyViewHolder vh = new MyViewHolder(mContext,v);
         return vh;
     }
 
@@ -65,6 +67,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.imageView.setImageResource(items[position].imageResId);
         holder.wordTextView.setText(items[position].word);
+        holder.item = items[position];
     }
 
     @Override
@@ -76,18 +79,21 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         View rootView;
         ImageView imageView;
         TextView wordTextView;
+        WordItem item;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(final Context context, @NonNull View itemView) {
             super(itemView);
             rootView = itemView;
             imageView = itemView.findViewById(R.id.image_view);
             wordTextView = itemView.findViewById(R.id.word_text_view);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+            rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast t = Toast.makeText(mContext,wordTextView.getText(),Toast.LENGTH_LONG);
-                    t.show();
+                    Toast.makeText(context,item.word,Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(context,WordListActivity.class);
+                    context.startActivity(intent);
                 }
             });
         }
