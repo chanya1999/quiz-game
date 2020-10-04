@@ -92,7 +92,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         TextView wordTextView;
         WordItem item;
 
-        public MyViewHolder(final Context context, @NonNull View itemView) {
+        public MyViewHolder(final Context context, @NonNull final View itemView) {
             super(itemView);
             rootView = itemView;
             imageView = itemView.findViewById(R.id.image_view);
@@ -104,6 +104,8 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                     Toast.makeText(context,item.word,Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(context,WordDetailsActivity.class);
+                    intent.putExtra("word", item.word);
+                    intent.putExtra("image", item.imageResId);
                     context.startActivity(intent);
                 }
             });
