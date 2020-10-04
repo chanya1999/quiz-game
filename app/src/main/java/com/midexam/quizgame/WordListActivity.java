@@ -65,14 +65,6 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.imageView.setImageResource(items[position].imageResId);
         holder.wordTextView.setText(items[position].word);
-
-        holder.rootView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast t = Toast.makeText(mContext,holder.wordTextView.getText(),Toast.LENGTH_LONG);
-                t.show();
-            }
-        });
     }
 
     @Override
@@ -91,6 +83,13 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             imageView = itemView.findViewById(R.id.image_view);
             wordTextView = itemView.findViewById(R.id.word_text_view);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast t = Toast.makeText(mContext,wordTextView.getText(),Toast.LENGTH_LONG);
+                    t.show();
+                }
+            });
         }
     }
 }
