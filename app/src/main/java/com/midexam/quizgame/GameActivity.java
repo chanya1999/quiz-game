@@ -100,6 +100,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     round=0;
                     score=0;
                     scoreTextView.setText(score+" คะแนน");
+                    mItemList = new ArrayList<>(Arrays.asList(WordListActivity.items));
+                    newQuiz();
                 }
             });
             AlertDialog dialog = builder.create();
