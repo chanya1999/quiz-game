@@ -49,21 +49,20 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mButtons[3].setOnClickListener(this);
 
         scoreTextView = findViewById(R.id.score_text_view);
-
+        mItemList = new ArrayList<>(Arrays.asList(WordListActivity.items));
         mRandom = new Random();
         newQuiz();
     }
 
     private void newQuiz() {
 
-        mItemList = new ArrayList<>(Arrays.asList(WordListActivity.items));
+
         // random word for game
         int answerIndex = mRandom.nextInt(mItemList.size());
 
         WordItem item = mItemList.get(answerIndex);
         // set image for test
         mQuestionImageView.setImageResource(item.imageResId);
-
         mAnswerWord = item.word;
 
         // random choice button answer
