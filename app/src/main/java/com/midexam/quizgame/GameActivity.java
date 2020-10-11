@@ -1,11 +1,14 @@
 package com.midexam.quizgame;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.midexam.quizgame.model.WordItem;
@@ -25,6 +28,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private Random mRandom;
     private List<WordItem> mItemList;
 
+    private int score = 0;
+    TextView scoreTextView;
+    private int round = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,12 +48,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mButtons[2].setOnClickListener(this);
         mButtons[3].setOnClickListener(this);
 
+        scoreTextView = findViewById(R.id.score_text_view);
 
         mRandom = new Random();
         newQuiz();
     }
 
     private void newQuiz() {
+
         mItemList = new ArrayList<>(Arrays.asList(WordListActivity.items));
         // random word for game
         int answerIndex = mRandom.nextInt(mItemList.size());
@@ -74,6 +83,36 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    private void checkRound(){
+        round++;
+        if(round==5){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("สรุปผล");
+            builder.setMessage("คุณได้ "+score+" คะแนน\nคุณต้องการเล่นเกมใหม่หรือไม่");
+            builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    finish();
+                }
+            });
+            builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    round=0;
+                    score=0;
+                    scoreTextView.setText(score+" คะแนน");
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.show();
+
+        }else{
+            newQuiz();
+        }
+
+    }
+
     @Override
     public void onClick(View view) {
         Button b = findViewById(view.getId());
@@ -81,10 +120,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         if(mAnswerWord.equals(buttonText)){
             Toast.makeText(GameActivity.this,"✔ CORRECT",Toast.LENGTH_SHORT).show();
+            score++;
+            scoreTextView.setText(score+" คะแนน");
+
         }else {
             Toast.makeText(GameActivity.this,"✖ INCORRECT!",Toast.LENGTH_SHORT).show();
         }
-        newQuiz();
+        checkRound();
+
 
     }
 }
