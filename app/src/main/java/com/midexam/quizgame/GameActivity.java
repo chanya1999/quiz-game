@@ -87,7 +87,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         if(round==5){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("สรุปผล");
-            builder.setMessage("คุณได้ "+score+" คะแนน\nคุณต้องการเล่นเกมใหม่หรือไม่");
+            builder.setMessage("คุณได้ "+score+" คะแนน\n\nคุณต้องการเล่นเกมใหม่หรือไม่");
             builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
